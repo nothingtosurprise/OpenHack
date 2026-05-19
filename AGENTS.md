@@ -136,3 +136,14 @@ explicitly asks for that.
 
 Logs are structured. The tool writes `logs/events.jsonl` and `trace.jsonl`; it
 does not write `human.log`.
+
+## Artifact Discipline
+
+All work must remain within the run folder (`runs/<target>/<run-id>/`). Never write
+intermediate analysis, scratch files, or temporary state to system temp directories
+(`/tmp/`, `/var/`, etc.). Instead:
+
+- Use designated run subdirectories: `results-pending/`, `finding-triage/decisions/`, `.scratch/`, or create task-specific subdirs.
+- All artifacts (including intermediate computation files, mappings, logs) are part of the durable engagement state.
+- If intermediate state is needed only within a single agent invocation, hold it in memory; do not write to `/tmp/`.
+- The run folder is the canonical record of the engagement. System temp files are not auditable, not archivable, and break reproducibility.
